@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
@@ -56,6 +56,9 @@ def schreibe_zahl_rekursiv(zahl):
     return schreibe_zahl_rekursiv(zahl // (10**4000)) + str(zahl % (10**4000))
 
 
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 @app.route('/fibonacci', methods=['GET'])
