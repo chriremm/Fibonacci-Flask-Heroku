@@ -12,6 +12,7 @@
         <input type="number" id="n" name="n" required>
         <input type="submit" value="Calculate Fibonacci">
     </form>
+<div id="result"></div>
 </body>
 <script>
 document.querySelector('form').onsubmit = async (e) => {
@@ -19,7 +20,7 @@ document.querySelector('form').onsubmit = async (e) => {
     const n = document.querySelector('#n').value;
     const response = await fetch(`/fibonacci?n=${n}`);
     const data = await response.json();
-    alert(`Fibonacci Number: ${data['Fibonacci Number']}`);
+    document.querySelector('#result').innerText = `Fibonacci Number: ${data['Fibonacci Number']}`;
 };
 </script>
 </html>
