@@ -68,4 +68,4 @@ def get_fibonacci():
     return jsonify({"Fibonacci Number": schreibe_zahl_rekursiv(result)})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)
+    app.run(host='0.0.0.0', port=5000)
