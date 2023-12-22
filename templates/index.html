@@ -17,7 +17,7 @@
                         <form action="/fibonacci" method="get">
                             <div class="form-group">
                                 <label for="n" class="control-label">Enter a number:</label>
-                                <input type="number" class="form-control" id="n" name="n" max="1000000" required>
+                                <input type="number" class="form-control" id="n" name="n" max="100000000000" required>
                             </div>
                             <div class="text-center">
                                 <input type="submit" class="btn btn-primary" value="Calculate Fibonacci">
@@ -40,10 +40,13 @@
             </button>
           </div>
           <div class="modal-body">
-            <p id="modalResultText">Fibonacci Number: </p>
+            <div id="fibNumberContainer" style="overflow-x: auto; white-space: nowrap;">
+                <p id="modalResultText">Fibonacci Number: </p>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="copyButton">Copy Number</button>
           </div>
         </div>
       </div>
@@ -55,19 +58,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <script>
-    document.querySelector('form').onsubmit = async (e) => {
-        e.preventDefault(); // Verhindern des Seiten-Reloads
-        const n = document.querySelector('#n').value;
-        const response = await fetch(`/fibonacci?n=${n}`);
-        const data = await response.json();
+<script>
+document.querySelector('form').onsubmit = async (e) => {
+    e.preventDefault(); // Verhindern des Seiten-Reloads
+    const n = document.querySelector('#n').value;
+    const response = await fetch(`/fibonacci?n=${n}`);
+    const data = await response.json();
 
-        // Setzen des Ergebnisses im Modal-Text
-        document.querySelector('#modalResultText').innerText = `Fibonacci Number: ${data['Fibonacci Number']}`;
+    // Setzen des Ergebnisses im Modal-Text
+    document.querySelector('#modalResultText').innerText = `${data['Fibonacci Number']}`;
 
-        // Anzeigen des Modals
-        $('#resultModal').modal('show');
-    };
-    </script>
+    // Anzeigen des Modals
+    $('#resultModal').modal('show');
+};
+
+// Kopierfunktion
+document.querySelector('#copyButton').addEventListener('click', () => {
+    // Text aus dem Modal holen
+    const fullText = document.querySelector('#modalResultText').innerText;
+
+    // Verwenden der Clipboard API zum Kopieren der Nummer
+    navigator.clipboard.writeText(fullText).then(() => {
+        // Optional: Feedback geben, dass der Text kopiert wurde
+        alert('Number copied to clipboard!');
+    }).catch(err => {
+        console.error('Error copying text: ', err);
+    });
+});
+
+
+</script>
+
 </body>
 </html>
