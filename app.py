@@ -61,17 +61,6 @@ def calculate_fibonacci_5(n) -> tuple[int, int]:
 
 
 @lru_cache(maxsize=1000)
-def schreibe_zahl_rekursiv(zahl: int) -> str:  # Rekursionstiefe ist begrenzt (wird daher nicht mehr verwendet)
-    if zahl == 0:
-        return ""
-
-    try:
-        return schreibe_zahl_rekursiv(zahl // (10 ** 4000)) + str(zahl % (10 ** 4000))
-    except RecursionError:
-        return "Error: Zahl ist zu groß"
-
-
-@lru_cache(maxsize=1000)
 def schreibe_zahl_iterativ(zahl: int) -> str:
     if zahl == 0:
         return ""
@@ -100,10 +89,8 @@ def index():
 
 @app.route('/fibonacci', methods=['GET'])
 def get_fibonacci():
-    print("Request received")
     queue: Queue = Queue()
     n: int = request.args.get('n', default=1, type=int)
-    print("n: " + str(n))
 
     if n < 0:
         return jsonify({"Fibonacci Number": "Error: n must be a positive integer"})
