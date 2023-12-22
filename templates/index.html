@@ -4,33 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fibonacci Calculator</title>
-    <style>
-        #result {
-            width: 100%; /* oder eine feste Breite, z.B. 600px */
-            height: 1500px; /* Höhe des Bereichs */
-            overflow-y: auto; /* Fügt eine vertikale Scrollleiste hinzu, wenn nötig */
-            /*border: 1px solid #000;  Optional: Fügt einen Rand hinzu */
-            white-space: pre-wrap; /* Sorgt dafür, dass der Text umbricht */
-            word-wrap: break-word; /* Breche lange Wörter um, wenn nötig */
-        }
-    </style>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Fibonacci Calculator</h1>
-    <form action="/fibonacci" method="get">
-        <label for="n">Enter a number:</label>
-        <input type="number" id="n" name="n" required>
-        <input type="submit" value="Calculate Fibonacci">
-    </form>
-<div id="result"></div>
+    <div class="container h-100 d-flex justify-content-center align-items-center">
+        <div class="row w-100">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Fibonacci Calculator</h1>
+                        <form action="/fibonacci" method="get">
+                            <div class="form-group">
+                                <label for="n" class="control-label">Enter a number:</label>
+                                <input type="number" class="form-control" id="n" name="n" max="1000000" required>
+                            </div>
+                            <div class="text-center">
+                                <input type="submit" class="btn btn-primary" value="Calculate Fibonacci">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ergebnis als Modal -->
+    <div class="modal" tabindex="-1" role="dialog" id="resultModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Fibonacci Calculator Result</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="modalResultText">Fibonacci Number: </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script>
+    document.querySelector('form').onsubmit = async (e) => {
+        e.preventDefault(); // Verhindern des Seiten-Reloads
+        const n = document.querySelector('#n').value;
+        const response = await fetch(`/fibonacci?n=${n}`);
+        const data = await response.json();
+
+        // Setzen des Ergebnisses im Modal-Text
+        document.querySelector('#modalResultText').innerText = `Fibonacci Number: ${data['Fibonacci Number']}`;
+
+        // Anzeigen des Modals
+        $('#resultModal').modal('show');
+    };
+    </script>
 </body>
-<script>
-document.querySelector('form').onsubmit = async (e) => {
-    e.preventDefault(); // Verhindern des Seiten-Reloads
-    const n = document.querySelector('#n').value;
-    const response = await fetch(`/fibonacci?n=${n}`);
-    const data = await response.json();
-    document.querySelector('#result').innerText = `Fibonacci Number: ${data['Fibonacci Number']}`;
-};
-</script>
 </html>
