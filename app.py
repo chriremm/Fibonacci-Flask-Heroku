@@ -102,7 +102,7 @@ def get_fibonacci():
 
     if calculation.is_alive():
         calculation.terminate()
-        print("Calculation terminated")
+        print("Calculation terminated due to timeout")
         return jsonify({"Fibonacci Number": "Error: Calculation took too long"})
 
     response = Process(target=response_process, args=(queue,))
@@ -112,7 +112,7 @@ def get_fibonacci():
 
     if response.is_alive():
         response.terminate()
-        print("Response terminated")
+        print("Response terminated due to timeout")
         return jsonify({"Fibonacci Number": "Error: Response took too long"})
 
     result: str = queue.get()
