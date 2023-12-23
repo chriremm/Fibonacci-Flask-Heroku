@@ -29,7 +29,7 @@ if [ ! -f "ngrok" ]; then
   echo "Unpacking ngrok..."
 
   # Entpacken von ngrok
-  tar -xzf ngrok-v3-stable-linux-s390x.tgz
+  tar -xzf ngrok-v3-stable-linux-amd64.tgz
 fi
 
 chmod +x ngrok
