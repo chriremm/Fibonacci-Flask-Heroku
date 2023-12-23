@@ -7,7 +7,7 @@ APP_MODULE="app:app"
 
 # Check if venv exists
 if [ ! -d "venv" ]; then
-  echo "venv not found, creating venv and installing requirements..."
+  echo "venv not found, creating venv..."
   python -m venv venv
 fi
 
@@ -19,18 +19,22 @@ source $VENV_PATH
 # Install requirements
 pip install -r requirements.txt
 
-echo "Downloading ngrok..."
+# Check if ngrok not exists
+if [ ! -f "ngrok" ]; then
+  # ngrok exists
+  echo "Downloading ngrok..."
+  # Download ngrok tar
+  wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
 
-# Download ngrok tar
-wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-s390x.tgz
+  echo "Unpacking ngrok..."
 
-echo "Unpacking ngrok..."
+  # Entpacken von ngrok
+  tar -xzf ngrok-v3-stable-linux-s390x.tgz
+fi
 
-# Entpacken von ngrok
-tar -xvf ngrok-v3-stable-linux-s390x.tgz
 chmod +x ngrok
 
-echo "Starting ngrok and gunicorn..."
+echo "Starting gunicorn..."
 
 # Starten von Gunicorn im Hintergrund
 nohup nice -n 10 $APP_PATH -w 4 $APP_MODULE --bind 127.0.0.1:5000 > gunicorn.log 2>&1 &
