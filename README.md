@@ -34,6 +34,52 @@ set FLASK_APP=app.py
 flask run
 ```
 
-This will start a local server, typically on `http://127.0.0.1:5000`, where you can access the Fibonacci Calculator.
+## Running the Application with `run.sh` Script (for lxhalle)
 
-Make sure to replace `app.py` with the actual name of your Python script that initializes the Flask application.
+This project includes a convenient script named `run.sh` that automates the process of setting up and running the server on lxhalle. This script handles the creation of a virtual environment, installing dependencies, downloading and setting up ngrok, and starting the Flask application via Gunicorn with the appropriate configurations.
+
+### Prerequisites
+
+Before running the script, ensure you have the following installed:
+- Python 3
+- pip (Python package manager)
+- wget (for downloading ngrok)
+
+### Running the Script
+
+1. **Clone the Repository**:
+   First, clone the repository to your local machine and navigate to the repository folder:
+
+   ```bash
+   git clone [Repository URL]
+   cd [Repository Folder]
+   ```
+
+2. **Execute the Script**:
+   Run the `run.sh` script with the following command:
+
+   ```bash
+   bash run.sh
+   ```
+
+3. **Script Execution**:
+   The script will perform the following actions:
+   - Check for and create a virtual environment (`venv`) if it doesn't exist.
+   - Activate the virtual environment and install the required dependencies from `requirements.txt`.
+   - Download and set up the latest version of ngrok for Linux s390x architecture.
+   - Start the Gunicorn server hosting the Flask application on `localhost:5000`.
+   - Start ngrok to create a public URL tunneling to the Gunicorn server.
+
+4. **Accessing the Application**:
+   Once the script finishes execution, it will display the ngrok URL, which you can use to access the application from any web browser:
+   ```
+   ngrok URL: [Public ngrok URL]
+   ```
+   Copy and paste this URL into your browser to interact with the Flask application hosted on lxhalle.
+
+### Logs
+
+- Gunicorn logs are saved in `gunicorn.log`.
+- ngrok logs are saved in `ngrok.log`.
+
+You can monitor these logs for debugging and monitoring the application's behavior.
