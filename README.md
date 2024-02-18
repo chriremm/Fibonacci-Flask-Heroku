@@ -34,64 +34,16 @@ set FLASK_APP=app.py
 flask run
 ```
 ## Installing ngrok
+[ngrok download page](https://ngrok.com/download)
 
 Follow these steps to install ngrok:
 
-1. **Download ngrok**
-
-   Visit the [ngrok download page](https://ngrok.com/download) and download the zip file for your operating system.
-
-2. **Unzip the file**
-
-   Unzip the downloaded file to extract the ngrok executable. On Unix systems, you can use the `unzip` command:
-
-   ```bash
-   unzip /path/to/ngrok.zip
-   ```
-
-   Replace `/path/to/ngrok.zip` with the path where you downloaded the ngrok zip file.
-
-3. **Make ngrok executable**
-
-   On Unix systems, you may need to make the ngrok file executable:
-
-   ```bash
-   chmod +x /path/to/ngrok
-   ```
-
-   Replace `/path/to/ngrok` with the path where you unzipped the ngrok executable.
-
-4. **Move ngrok to your PATH**
-
-   To be able to run ngrok from any directory, move the ngrok executable to a directory that's on your system's PATH. On Unix systems, you can use the `mv` command:
-
-   ```bash
-   mv /path/to/ngrok /usr/local/bin
-   ```
-
-   Replace `/path/to/ngrok` with the path where you unzipped the ngrok executable.
-
-5. **Connect your account**
-
-   Run the following command to add your ngrok authtoken (you can find this on your ngrok dashboard after you sign up and log in):
-
-   ```bash
-   ngrok authtoken YOUR_AUTH_TOKEN
-   ```
-
-   Replace `YOUR_AUTH_TOKEN` with your actual ngrok authtoken.
-
-6. **Test the installation**
-
-   You can test that ngrok is working by starting a tunnel:
-
-   ```bash
-   ngrok http 80
-   ```
-
-   If ngrok is installed correctly, you should see a ngrok logging interface in your terminal.
-
-Remember to replace `/path/to/ngrok` with the actual path to the ngrok executable on your system.
+1. `wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz`
+2. `tar xvzf /path/to/ngrok-v3-stable-linux-amd64.tgz`
+3. `chmod +x ngrok`
+4. `mv ngrok /path/to/repo/`
+5. `cd /path/to/repo/`
+6. `./ngrok authtoken YOUR_AUTH_TOKEN`
 
 ## Running the Application with `run.sh` Script (for lxhalle)
 
